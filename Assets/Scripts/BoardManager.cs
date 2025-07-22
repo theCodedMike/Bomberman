@@ -9,6 +9,8 @@ public class BoardManager : MonoBehaviour
     public GameObject metalPrefab;
     [Header("可被毁砖块")]
     public GameObject wallPrefab;
+    [Header("主角")]
+    public GameObject playerPrefab;
 
     [Header("列数")]
     public int column;
@@ -32,6 +34,7 @@ public class BoardManager : MonoBehaviour
         BoardSetup();
         InitList();
         LayoutWallAtRandom(wallCount.min, wallCount.max);
+        GeneratePlayer();
     }
 
     // 生成不可毁砖块
@@ -105,6 +108,13 @@ public class BoardManager : MonoBehaviour
             obj.transform.SetParent(_boardHolder);
             wallList.Add(obj.GetComponent<Wall>());
         }
+    }
+    
+    // 生成玩家
+    private void GeneratePlayer()
+    {
+        GameObject playerObj = Instantiate(playerPrefab, new Vector3(0, row - 1, 0), Quaternion.identity);
+        playerObj.transform.SetParent(_boardHolder);
     }
 }
 
