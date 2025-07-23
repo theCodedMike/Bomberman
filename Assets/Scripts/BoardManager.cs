@@ -11,6 +11,8 @@ public class BoardManager : MonoBehaviour
     public GameObject wallPrefab;
     [Header("主角")]
     public GameObject playerPrefab;
+    [Header("敌人")]
+    public GameObject wormPrefab;
 
     [Header("列数")]
     public int column;
@@ -18,11 +20,15 @@ public class BoardManager : MonoBehaviour
     public int row;
     [Header("可被毁砖块的个数")]
     public Count wallCount;
+    [Header("怪物数量范围")]
+    public Count wormCount;
     
     [HideInInspector]
-    public List<Metal> metalList = new();
+    public List<Vector3> metalPositions = new();
     [HideInInspector]
-    public List<Wall> wallList = new();
+    public List<Vector3> wallPositions = new();
+    [HideInInspector]
+    public List<Transform> wormList = new();
     [HideInInspector]
     public List<Vector3> gridPositions = new();
 
@@ -35,6 +41,7 @@ public class BoardManager : MonoBehaviour
         InitList();
         LayoutWallAtRandom(wallCount.min, wallCount.max);
         GeneratePlayer();
+        LayoutWormAtRandom(wormCount.min, wormCount.max);
     }
 
     // 生成不可毁砖块
@@ -50,7 +57,7 @@ public class BoardManager : MonoBehaviour
                 {
                     GameObject obj = Instantiate(metalPrefab, new Vector3(x, y, 0), Quaternion.identity);
                     obj.transform.parent = _boardHolder;
-                    metalList.Add(obj.GetComponent<Metal>());
+                    metalPositions.Add(obj.transform.position);
                 }
             }
         }
@@ -98,7 +105,7 @@ public class BoardManager : MonoBehaviour
     // 生成[min, max]个可被毁墙体
     private void LayoutWallAtRandom(int min, int max)
     {
-        wallList.Clear();
+        wallPositions.Clear();
         int count = Random.Range(min, max + 1);
         print($"LayoutWallAtRandom: {count}");
 
@@ -106,7 +113,7 @@ public class BoardManager : MonoBehaviour
         {
             GameObject obj = Instantiate(wallPrefab, RandomPosition(), Quaternion.identity);
             obj.transform.SetParent(_boardHolder);
-            wallList.Add(obj.GetComponent<Wall>());
+            wallPositions.Add(obj.transform.position);
         }
     }
     
@@ -115,6 +122,19 @@ public class BoardManager : MonoBehaviour
     {
         GameObject playerObj = Instantiate(playerPrefab, new Vector3(0, row - 1, 0), Quaternion.identity);
         playerObj.transform.SetParent(_boardHolder);
+    }
+
+    // 生成怪物
+    private void LayoutWormAtRandom(int min, int max)
+    {
+        wormList.Clear();
+        int count = Random.Range(min, max + 1);
+        for (int i = 0; i < count; i++)
+        {
+            GameObject wormObj = Instantiate(wormPrefab, RandomPosition(), Quaternion.identity);
+            wormObj.transform.SetParent(_boardHolder);
+            wormList.Add(wormObj.transform);
+        }
     }
 }
 

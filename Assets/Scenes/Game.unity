@@ -393,9 +393,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4307705101254810251, guid: 4a23936b32c689b49a132f6c8e5b700e, type: 3}
+      propertyPath: wormPrefab
+      value: 
+      objectReference: {fileID: 1617549223832526, guid: 6d4aab188770cdd46ae81ee48c8f4182, type: 3}
+    - target: {fileID: 4307705101254810251, guid: 4a23936b32c689b49a132f6c8e5b700e, type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 1686248531582932, guid: 0f74b4210a3a3a24abaee034ec5a7fa9, type: 3}
+    - target: {fileID: 4307705101254810251, guid: 4a23936b32c689b49a132f6c8e5b700e, type: 3}
+      propertyPath: wormCount.max
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307705101254810251, guid: 4a23936b32c689b49a132f6c8e5b700e, type: 3}
+      propertyPath: wormCount.min
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

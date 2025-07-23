@@ -38,4 +38,17 @@ public class Player : MonoBehaviour
         _animator.SetInteger(X, (int)h);
         _animator.SetInteger(Y, (int)v);
     }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // 遇炸弹爆炸死亡
+        if(other.CompareTag("Fire"))
+            Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.collider.CompareTag("Worm"))
+            Destroy(gameObject);
+    }
 }
